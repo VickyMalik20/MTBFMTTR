@@ -1,2 +1,42 @@
-node_modules
+# Dependencies
+/node_modules
+
+# Build output
+.next
+out
+build
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Next.js specific
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# IDE specific files
+.vscode
+.idea
+
+# Log files
+*.log
+
+# MacOS specific files
+.DS_Store
+
+# Vercel
 .vercel
