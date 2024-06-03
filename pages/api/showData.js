@@ -1,25 +1,29 @@
-import { db } from "../../lib/db";
+import supabase from "../../lib/supabase";
 
-export default function handler(req, res) {
-    if (req.method === 'GET') {
+export default async function handler(req, res) {
+    if (req.method === "GET") {
         const { tanggal } = req.query;
-        let sql = 'SELECT * FROM mtbf_mttr_results';
-        let values = [];
 
-        if (tanggal) {
-            sql += ' WHERE tanggal = ?';
-            values.push(tanggal);
-        }
+        try {
+            let { data, error } = await supabase
+                .from("mtbf_mttr_results")
+                .select("*");
 
-        db.query(sql, values, (error, results) => {
-            if (error) {
-                console.error('Error fetching results from database:', error);
-                res.status(500).json({ message: 'Internal Server Error' });
-            } else {
-                res.status(200).json(results);
+            if (tanggal) {
+                data = data.filter((result) => result.tanggal === tanggal);
             }
-        });
+
+            if (error) {
+                console.error("Error fetching results from database:", error);
+                res.status(500).json({ message: "Internal Server Error" });
+            } else {
+                res.status(200).json(data);
+            }
+        } catch (error) {
+            console.error("Error fetching results from database:", error);
+            res.status(500).json({ message: "Internal Server Error" });
+        }
     } else {
-        res.status(405).json({ message: 'Method Not Allowed' });
+        res.status(405).json({ message: "Method Not Allowed" });
     }
 }

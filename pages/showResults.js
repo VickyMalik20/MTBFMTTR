@@ -92,7 +92,7 @@ export default function ShowResults() {
 
 
             <div className="calculator-title">
-                <h2 className="mt-5 mb-4 text-center">MTBF & MTTR Calculator</h2>
+                <h2 className="mt-5 mb-4 text-center">MTBF & MTTR Data LINE 1</h2>
             </div>
             <div className="d-flex justify-content-center mb-2 mt-2">
                 <div className="input-group w-50">
@@ -186,7 +186,7 @@ export default function ShowResults() {
                     </table>
                 </div>
                 <div className="d-flex justify-content-start mt-3">
-                    <Link href="/" legacyBehavior>
+                    <Link href="/line1" legacyBehavior>
                         <button className="btn btn-secondary">
                             <FontAwesomeIcon icon={faArrowLeft} /> Back
                         </button>

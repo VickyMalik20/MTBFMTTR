@@ -1,22 +1,25 @@
-import { db } from "../../lib/db";
+import supabase from "../../lib/supabase";
 
 const handler = async (req, res) => {
-    const { id } = req.query
+    const { id } = req.query;
     try {
         if (!id) {
-            return res.status(400).json({ message: ' `id` tidak ada ' })
+            return res.status(400).json({ message: "Parameter 'id' tidak ada" });
         }
 
-        const results = await db.query(
-            `
-            DELETE FROM mtbf_mttr_results
-            WHERE id = ?
-            `, id
-        )
-        res.json(results)
+        const { data, error } = await supabase
+            .from("mtbf_mttr_results")
+            .delete()
+            .eq("id", id);
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        res.json(data);
     } catch (e) {
-        res.status(500).json({ message: e.message })
+        res.status(500).json({ message: e.message });
     }
-}
+};
 
 export default handler;
